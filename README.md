@@ -1,2 +1,1 @@
-# sumitppawar.github.io
-Sumit's personal blog
+http://pawarsumit.com
