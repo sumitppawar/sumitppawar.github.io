@@ -19,7 +19,7 @@
 
 
 
-<title>Blog</title>
+<title>Shorten ssh - Blog</title>
 
 
 
@@ -29,13 +29,15 @@
 
 <meta property="og:locale" content="en-US">
 <meta property="og:site_name" content="Blog">
-<meta property="og:title" content="Blog">
+<meta property="og:title" content="Shorten ssh">
 
 
-  <link rel="canonical" href="http://localhost:4000/">
-  <meta property="og:url" content="http://localhost:4000/">
+  <link rel="canonical" href="http://localhost:4000/shorten-ssh/">
+  <meta property="og:url" content="http://localhost:4000/shorten-ssh/">
 
 
+
+  <meta property="og:description" content="Every time we do operation on remote machine need specify hostname , user and .pem">
 
 
 
@@ -48,6 +50,13 @@
 
 
 
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-05-22T00:22:12+08:00">
+  
+    <link rel="next" href="http://localhost:4000/scalaz-disjunction/" title="Scalaz Disjunction">
+  
+  
 
 
 
@@ -123,6 +132,8 @@
 
 
 
+
+
 <div id="main" role="main">
   
 
@@ -191,20 +202,114 @@
   </div>
 
 
-  <div class="archive">
-    
-      <h1 class="page__title"></h1>
-    
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Shorten ssh">
+    <meta itemprop="description" content="Every time we do operation on remote machine need specify hostname , user and .pem">
+    <meta itemprop="datePublished" content="May 22, 2016">
     
 
-<h3 class="archive__subtitle">Recent Posts</h3>
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Shorten ssh
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
 
+  less than 1 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Every time we do operation on remote machine need specify hostname , user and .pem</p>
+
+<p>Example</p>
+<pre><code class="language-ssh">ssh -i your-pem-file.pem ubuntu@abc.compute.amazonaws.com
+</code></pre>
+<p>We can create shorten name for above, so that we don’t have to remember long machine name, user and pem file location</p>
+
+<p>Example</p>
+
+<pre><code class="language-ssh">ssh abcAws
+</code></pre>
+
+<p><code class="highlighter-rouge">abcAws</code> is shorten for <code class="highlighter-rouge">-i your-pem-file.pem ubuntu@abc.compute.amazonaws.com</code></p>
+
+<p><strong>How ?</strong></p>
+
+<ol>
+  <li>Add shorten in <code class="highlighter-rouge">~/.ssh/config</code> file
+    <pre><code class="language-ssh">Host abcAws
+HostName ubuntu@abc.compute.amazonaws.com
+User ubuntu
+IdentityFile your-pem-file.pem
+</code></pre>
+    <p>All done.</p>
+  </li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-05-22T00:22:12+08:00">May 22, 2016</time></p>
+        
+      </footer>
+
+      
+
+<section class="page__share">
   
 
+  <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/shorten-ssh/" class="btn btn--facebook" title=" Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+   !--
+   !-- <a href="https://plus.google.com/share?url=http://localhost:4000/shorten-ssh/" class="btn btn--google-plus" title=" Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+   !--
+   !-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/shorten-ssh/" class="btn btn--linkedin" title=" LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a> -->
+</section>
 
 
-<div class="list__item">
+      
+
+
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="http://localhost:4000/scalaz-disjunction/" class="pagination--pager" title="Scalaz Disjunction
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
   
     <a href="http://localhost:4000/scalaz-disjunction/">
   
@@ -226,39 +331,12 @@ ways to convert different type into disjunction and it compose.
     </article>
   </a>
 </div>
-
+        
+      </div>
+    </div>
   
-
-
-
-<div class="list__item">
-  
-    <a href="http://localhost:4000/shorten-ssh/">
-  
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      
-      <h2 class="archive__item-title" itemprop="headline">Shorten ssh
-</h2>
-      
-        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  less than 1 minute read
-</p>
-      
-      <p class="archive__item-excerpt" itemprop="description">Every time we do operation on remote machine need specify hostname , user and .pem
-
-</p>
-    </article>
-  </a>
 </div>
 
-
-
-
-
-  </div>
-</div>
 
     <div class="page__footer">
       <footer>
