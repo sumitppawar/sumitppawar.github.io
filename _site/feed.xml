@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-01-27T15:09:32+08:00</updated><id>/feed.xml</id><title type="html">Blog</title><subtitle>Blog around scala.</subtitle><author><name>Sumit Pawar</name><email>sumitppawar@gmail.com</email><uri>http://www.pawarsumit.com</uri></author><entry><title type="html">Scalaz Disjunction</title><link href="/scalaz-disjunction/" rel="alternate" type="text/html" title="Scalaz Disjunction" /><published>2016-10-23T16:51:20+08:00</published><updated>2016-10-23T16:51:20+08:00</updated><id>/scalaz-disjunction</id><content type="html" xml:base="/scalaz-disjunction/">&lt;p&gt;Scalaz provides disjunction &lt;code class=&quot;highlighter-rouge&quot;&gt;\/&lt;/code&gt; which is kind of scala’s &lt;code class=&quot;highlighter-rouge&quot;&gt;Either&lt;/code&gt;. It provides
+ways to convert different type into disjunction and it compose.&lt;/p&gt;</content><author><name>Sumit Pawar</name><email>sumitppawar@gmail.com</email><uri>http://www.pawarsumit.com</uri></author><summary type="html">Scalaz provides disjunction \/ which is kind of scala’s Either. It provides ways to convert different type into disjunction and it compose.</summary></entry><entry><title type="html">Shorten ssh</title><link href="/shorten-ssh/" rel="alternate" type="text/html" title="Shorten ssh" /><published>2016-05-22T00:22:12+08:00</published><updated>2016-05-22T00:22:12+08:00</updated><id>/shorten-ssh</id><content type="html" xml:base="/shorten-ssh/">&lt;p&gt;Every time we do operation on remote machine need specify hostname , user and .pem&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ssh&quot;&gt;ssh -i your-pem-file.pem ubuntu@abc.compute.amazonaws.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can create shorten name for above, so that we don’t have to remember long machine name, user and pem file location&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-ssh&quot;&gt;ssh abcAws
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abcAws&lt;/code&gt; is shorten for &lt;code class=&quot;highlighter-rouge&quot;&gt;-i your-pem-file.pem ubuntu@abc.compute.amazonaws.com&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How ?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Add shorten in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.ssh/config&lt;/code&gt; file
+    &lt;pre&gt;&lt;code class=&quot;language-ssh&quot;&gt;Host abcAws
+HostName ubuntu@abc.compute.amazonaws.com
+User ubuntu
+IdentityFile your-pem-file.pem
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;All done.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Sumit Pawar</name><email>sumitppawar@gmail.com</email><uri>http://www.pawarsumit.com</uri></author><summary type="html">Every time we do operation on remote machine need specify hostname , user and .pem</summary></entry></feed>
