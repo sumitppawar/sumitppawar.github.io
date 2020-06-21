@@ -1,0 +1,477 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Scala Extractors - Blog</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="Blog">
+<meta property="og:title" content="Scala Extractors">
+
+
+
+
+  <meta property="og:description" content="Scala extractors are used for pattern matching.  If we define case class , compiler will automatically generate unapply for you.  When used for pattern matching scala compiler call unapply method of provided type.  Extractor not need to be in same object of that type.  Extractor is breaking encapsulation if we looks from point of OOPs, that’s why scala encourage to separate data and behavior .">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2016-06-01T16:51:20+08:00">
+  
+    <link rel="next" href="/scalaz-disjunction/" title="Scalaz Disjunction">
+  
+  
+    <link rel="prev" href="/shorten-ssh/" title="Shorten ssh">
+  
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "person",
+      "name" : "Sumit Pawar",
+      "url" : null,
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<!-- <link rel="stylesheet" href="/assets/css/solarized-light.css"> -->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="/">Blog</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.pawarsumit.com/about">About</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="/images/bio-photo.png" class="author__avatar" alt="Sumit Pawar">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Sumit Pawar</h3>
+    <p class="author__bio">Scala programmer.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Singapore</li>
+      
+      
+        <li><a href="http://www.pawarsumit.com"><i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website</a></li>
+      
+      
+        <li><a href="mailto:sumitppawar@gmail.com"><i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+      
+      
+      
+      
+      
+      
+        <li><a href="http://linkedin.com/in/sumit-pawar-6b01a963"><i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn</a></li>
+      
+      
+      
+      
+      
+      
+        <li><a href="http://github.com/sumitppawar"><i class="fa fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Scala Extractors">
+    <meta itemprop="description" content="Scala extractors are used for pattern matching.  If we define case class , compiler will automatically generate unapply for you.  When used for pattern matching scala compiler call unapply method of provided type.  Extractor not need to be in same object of that type.  Extractor is breaking encapsulation if we looks from point of OOPs, that’s why scala encourage to separate data and behavior .">
+    <meta itemprop="datePublished" content="June 01, 2016">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Scala Extractors
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  1 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Scala extractors are used for pattern matching.</p>
+<ol>
+  <li>If we define <code class="highlighter-rouge">case class</code> , compiler will automatically generate <code class="highlighter-rouge">unapply</code> for you.
+  When used for pattern matching scala compiler call unapply method of provided type.</li>
+  <li>Extractor not need to be in same object of that type.</li>
+  <li>Extractor is breaking encapsulation if we looks from point of OOPs, that’s why scala encourage to separate data and behavior .</li>
+</ol>
+
+<p>Types of extractor</p>
+
+<ul>
+  <li>Type that we want decompose has only one parameter.</li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>  
+<span class="c1">// If we define Pesron as a case class compile will generate unapply
+</span><span class="k">object</span> <span class="nc">Person</span> <span class="o">{</span>
+   <span class="k">def</span> <span class="nf">unapply</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Option</span><span class="o">(</span><span class="nv">p</span><span class="o">.</span><span class="py">name</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="nv">person</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Sumit"</span><span class="o">)</span>
+<span class="n">person</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">name</span><span class="o">)</span>
+	<span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Extractor not found"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>Type that we want decompose has multiple parameters.</li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="nv">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="k">object</span> <span class="nc">Person</span> <span class="o">{</span>
+	<span class="k">def</span> <span class="nf">unapply</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">Option</span><span class="o">((</span><span class="nv">p</span><span class="o">.</span><span class="py">name</span><span class="o">,</span> <span class="nv">p</span><span class="o">.</span><span class="py">age</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">person</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Sumit"</span><span class="o">,</span> <span class="mi">27</span><span class="o">)</span>
+<span class="n">person</span> <span class="k">match</span> <span class="o">{</span>
+	<span class="k">case</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$name,$age"</span><span class="o">)</span>
+	<span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Extractor not found"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>Boolean Extractor
+    <ul>
+      <li><code class="highlighter-rouge">@</code> helps to bind appropriate type to <code class="highlighter-rouge">p</code></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="nv">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">PersonAgeValidator</span> <span class="o">{</span>
+	<span class="k">def</span> <span class="nf">unapply</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="nf">if</span><span class="o">(</span><span class="nv">p</span><span class="o">.</span><span class="py">age</span><span class="o">&gt;</span><span class="mi">27</span><span class="o">)</span> <span class="kc">true</span> <span class="k">else</span> <span class="kc">false</span>
+<span class="o">}</span>
+
+<span class="k">val</span> <span class="nv">person</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Sumit"</span><span class="o">,</span> <span class="mi">27</span><span class="o">)</span>
+<span class="n">person</span> <span class="k">match</span> <span class="o">{</span>
+	<span class="k">case</span> <span class="n">p</span> <span class="k">@</span> <span class="nc">PersonAgeValidator</span><span class="o">()</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"${p.name},${p.age}"</span><span class="o">)</span>
+	<span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Invalid age"</span><span class="o">)</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+<ul>
+  <li>Extractor as infix operator
+    <ul>
+      <li>In scala we can also use  extractor as infix operator.</li>
+      <li>If we have more than two parameter to decompose,  we can’t use infix extractor.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">27</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+	<span class="k">case</span> <span class="n">name</span> <span class="nc">Person</span> <span class="n">age</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Awesome"</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Extractor on Seq/Stream
+    <ul>
+      <li>While doing pattern matching on Seq/Steam use <code class="highlighter-rouge">:: or #::</code> extractor.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">object</span> <span class="nc">#::</span> <span class="o">{</span>
+	<span class="k">def</span> <span class="nf">unapply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">xs</span><span class="k">:</span> <span class="kt">Stream</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">A</span>, <span class="kt">Stream</span><span class="o">[</span><span class="kt">A</span><span class="o">])]</span> <span class="k">=</span>
+		<span class="nf">if</span> <span class="o">(</span><span class="nv">xs</span><span class="o">.</span><span class="py">isEmpty</span><span class="o">)</span> <span class="nc">None</span>
+		<span class="k">else</span> <span class="nc">Some</span><span class="o">((</span><span class="nv">xs</span><span class="o">.</span><span class="py">head</span><span class="o">,</span> <span class="nv">xs</span><span class="o">.</span><span class="py">tail</span><span class="o">))</span>
+<span class="o">}</span>
+<span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="nv">Stream</span><span class="o">.</span><span class="py">empty</span>
+<span class="n">stream</span> <span class="k">match</span> <span class="o">{</span>
+	<span class="k">case</span> <span class="n">head</span> <span class="o">#::</span> <span class="n">tail</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$head"</span><span class="o">)</span>
+	<span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">"Empty"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>Extracting multiple element</li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="nv">Stream</span><span class="o">.</span><span class="py">empty</span>
+<span class="n">stream</span> <span class="k">match</span> <span class="o">{</span>
+	<span class="k">case</span> <span class="o">#::(</span><span class="n">head</span><span class="o">,</span> <span class="o">#::</span> <span class="o">(</span><span class="n">second</span><span class="o">,</span><span class="n">tail</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$head"</span><span class="o">)</span>
+	<span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">"Empty"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-06-01T16:51:20+08:00">June 01, 2016</time></p>
+        
+      </footer>
+
+      
+
+<section class="page__share">
+  
+
+  <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=/scala-extractor/" class="btn btn--facebook" title=" Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+   !--
+   !-- <a href="https://plus.google.com/share?url=/scala-extractor/" class="btn btn--google-plus" title=" Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+   !--
+   !-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=/scala-extractor/" class="btn btn--linkedin" title=" LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a> -->
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="/shorten-ssh/" class="pagination--pager" title="Shorten ssh
+">Previous</a>
+    
+    
+      <a href="/scalaz-disjunction/" class="pagination--pager" title="Scalaz Disjunction
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/scalaz-disjunction/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Scalaz Disjunction
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  less than 1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">Scalaz provides disjunction \/ which is kind of scala’s Either. It provides
+ways to convert different type into disjunction and it compose.
+
+</p>
+    </article>
+  </a>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/shorten-ssh/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Shorten ssh
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  less than 1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">Every time we do operation on remote machine need specify hostname , user and .pem
+Example
+
+</p>
+    </article>
+  </a>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/sumitppawar"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+    <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+  </body>
+</html>
+
