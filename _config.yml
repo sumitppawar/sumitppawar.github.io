@@ -6,66 +6,65 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-locale                   : "en-US"
-title                    : "Blog"
-title_separator          : "-"
-name                     : "Sumit Pawar"
-description              : "Blog around scala."
-url                      : #"www.pawarsumit.com"
-baseurl                  : # the subpath of your site, e.g. "/blog"
-gh_repo                  :
-teaser                   : # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
+locale: "en-US"
+title: "_ => FP"
+title_separator: "-"
+name: "Sumit Pawar"
+description: "Blog around scala."
+url: #"www.pawarsumit.com"
+baseurl: # the subpath of your site, e.g. "/blog"
+gh_repo:
+teaser: # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 # breadcrumbs            : false # true, false (default)
-words_per_minute         : 200
+words_per_minute: 200
 
 # SEO Related
-google_site_verification :
-bing_site_verification   :
-alexa_site_verification  :
-yandex_site_verification :
+google_site_verification:
+bing_site_verification:
+alexa_site_verification:
+yandex_site_verification:
 
 # Social Sharing
 facebook:
-  username               :
-  app_id                 :
-  publisher              :
-og_image                 : # Open Graph/Twitter default site image
+  username:
+  app_id:
+  publisher:
+og_image: # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
-  type                   : # Person or Organization (defaults to Person)
-  name                   : # If the user or organization name differs from the site's name
+  type: # Person or Organization (defaults to Person)
+  name: # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
 
 # Site Author
 author:
-  name             : "Sumit Pawar"
-  avatar           : "bio-photo.png"
-  bio              : "Scala programmer."
-  location         : "Singapore"
-  email            : "sumitppawar@gmail.com"
-  uri              : "http://www.pawarsumit.com"
-  bitbucket        :
-  codepen          :
-  dribbble         :
-  flickr           :
-  facebook         :
-  foursquare       :
-  github           : "sumitppawar"
-  google_plus      :
-  keybase          :
-  instagram        :
-  lastfm           :
-  linkedin         : "sumit-pawar-6b01a963"
-  pinterest        :
-  soundcloud       :
-  steam            :
-  tumblr           :
-  vine             :
-  weibo            :
-  xing             :
-  youtube          :
-
+  name: "Sumit Pawar"
+  avatar: "bio-photo.png"
+  bio: "Scala programmer."
+  location: "Singapore"
+  email: "sumitppawar@gmail.com"
+  uri: "http://www.pawarsumit.com"
+  bitbucket:
+  codepen:
+  dribbble:
+  flickr:
+  facebook:
+  foursquare:
+  github: "sumitppawar"
+  google_plus:
+  keybase:
+  instagram:
+  lastfm:
+  linkedin: "sumit-pawar-6b01a963"
+  pinterest:
+  soundcloud:
+  steam:
+  tumblr:
+  vine:
+  weibo:
+  xing:
+  youtube:
 
 # Reading Files
 include:
@@ -100,14 +99,12 @@ keep_files:
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
-
 # Conversion
 markdown: kramdown
 highlighter: rouge
 lsi: false
 excerpt_separator: "\n\n"
 incremental: false
-
 
 # Markdown Processing
 kramdown:
@@ -120,13 +117,11 @@ kramdown:
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
 
-
 # Outputting
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 timezone: # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
 
 # Plugins
 gems:
@@ -143,7 +138,6 @@ whitelist:
   - jekyll-gist
   - jekyll-feed
   - jemoji
-
 
 # Archives
 #  Type
@@ -172,7 +166,6 @@ tags:
 #   permalinks:
 #     category: /categories/:name/
 #     tag: /tags/:name/
-
 
 # HTML Compression
 # - http://jch.penibelst.de/
