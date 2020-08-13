@@ -19,7 +19,7 @@
 
 
 
-<title>Shorten ssh - Blog</title>
+<title>Shorten ssh - _ =&gt; FP</title>
 
 
 
@@ -28,7 +28,7 @@
 
 
 <meta property="og:locale" content="en-US">
-<meta property="og:site_name" content="Blog">
+<meta property="og:site_name" content="_ => FP">
 <meta property="og:title" content="Shorten ssh">
 
 
@@ -76,7 +76,7 @@
 
 <!-- end SEO -->
 
-<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Blog Feed">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="_ => FP Feed">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
@@ -113,7 +113,7 @@
       <nav id="site-nav" class="greedy-nav">
         <button><div class="navicon"></div></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg"><a href="/">Blog</a></li>
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="/">_ => FP</a></li>
           
             
             <li class="masthead__menu-item"><a href="http://www.pawarsumit.com/about">About</a></li>
@@ -126,8 +126,6 @@
 </div>
 
     
-
-
 
 
 
@@ -199,33 +197,16 @@
   </div>
 
 
-  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Shorten ssh">
-    <meta itemprop="description" content="Every time we do operation on remote machine need specify hostname , user and .pemExample">
-    <meta itemprop="datePublished" content="May 22, 2016">
+  <div class="archive">
     
-
-    <div class="page__inner-wrap">
-      
-        <header>
-          <h1 class="page__title" itemprop="headline">Shorten ssh
-</h1>
-          
-            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  less than 1 minute read
-</p>
-          
-        </header>
-      
-
-      <section class="page__content" itemprop="text">
-        <p>Every time we do operation on remote machine need specify hostname , user and <code class="highlighter-rouge">.pem</code>
+      <h1 class="page__title">Shorten ssh</h1>
+    
+    <p>Every time we do operation on remote machine need specify hostname , user and <code class="highlighter-rouge">.pem</code>
 Example</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-i</span> your-pem-file.pem ubuntu@abc.compute.amazonaws.com
 </code></pre></div></div>
+
 <p>We can create shorten name for above, so that we don’t have to remember long machine name, user and pem file location.</p>
 
 <p>Example</p>
@@ -245,147 +226,11 @@ HostName ubuntu@abc.compute.amazonaws.com
 User ubuntu
 IdentityFile your-pem-file.pem
 </code></pre></div></div>
+
 <p>That’s it Enjoy :)</p>
 
-        
-      </section>
-
-      <footer class="page__meta">
-        
-        
-
-
-
-
-        
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-05-22T00:22:12+08:00">May 22, 2016</time></p>
-        
-      </footer>
-
-      
-
-<section class="page__share">
-  
-
-  <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=/shorten-ssh/" class="btn btn--facebook" title=" Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
-   !--
-   !-- <a href="https://plus.google.com/share?url=/shorten-ssh/" class="btn btn--google-plus" title=" Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
-   !--
-   !-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=/shorten-ssh/" class="btn btn--linkedin" title=" LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a> -->
-</section>
-
-
-      
-
-
-  <nav class="pagination">
-    
-      <a href="#" class="pagination--pager disabled">Previous</a>
-    
-    
-      <a href="/scala-extractor/" class="pagination--pager" title="Scala Extractors
-">Next</a>
-    
-  </nav>
-
-    </div>
-
-    
-  </article>
-
-  
-  
-    <div class="page__related">
-      
-        <h4 class="page__related-title">You May Also Enjoy</h4>
-      
-      <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  
-    <a href="/typeclass-over-sub-type-polymorphism/">
-  
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      
-      <h2 class="archive__item-title" itemprop="headline">Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism
-</h2>
-      
-        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  1 minute read
-</p>
-      
-      <p class="archive__item-excerpt" itemprop="description">Let’s assume that we want add a def ++[A](a: A, b:A):A on type  A
-
-</p>
-    </article>
-  </a>
+  </div>
 </div>
-        
-          
-
-
-
-<div class="grid__item">
-  
-    <a href="/composing-scalaz-disjunction/">
-  
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      
-      <h2 class="archive__item-title" itemprop="headline">Composing scalaz disjunction
-</h2>
-      
-        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  less than 1 minute read
-</p>
-      
-      <p class="archive__item-excerpt" itemprop="description">Scalaz provides disjunction \/ which is kind of scala’s Either. 
-It provides ways to convert different type to disjunction and it compose.
-
-</p>
-    </article>
-  </a>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  
-    <a href="/scala-extractor/">
-  
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      
-      <h2 class="archive__item-title" itemprop="headline">Scala Extractors
-</h2>
-      
-        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  1 minutes read
-</p>
-      
-      <p class="archive__item-excerpt" itemprop="description">Scala extractors are used for pattern matching.
-
-  If we define case class , compiler will automatically generate unapply for you.
-  When used for pattern ma...</p>
-    </article>
-  </a>
-</div>
-        
-      </div>
-    </div>
-  
-</div>
-
 
     <div class="page__footer">
       <footer>
