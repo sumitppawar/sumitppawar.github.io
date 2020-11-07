@@ -4,7 +4,7 @@ date: 2020-08-13T09:51:20+01:00
 layout: single
 ---
 
-This read is about being stack safety in scala and what are ways to be stack safe.
+This read is about being stack safety in scala and what are the ways to be stack safe.
 
 Before getting into `Trampoline` first let's understand  what is tail recursion ? And how  `scala compiler` optimize it ? 
 
