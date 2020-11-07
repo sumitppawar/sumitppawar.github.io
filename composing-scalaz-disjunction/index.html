@@ -228,7 +228,7 @@ It provides ways to convert different type to disjunction and it compose.</p>
 
 <p>Let’s start with example 
 Assume that we have different functions as below</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">findCustomerById</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Customer</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code> <span class="k">def</span> <span class="nf">findCustomerById</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Customer</span><span class="o">]</span>
  <span class="k">def</span> <span class="nf">getCustomerAccount</span><span class="o">(</span><span class="n">customer</span><span class="k">:</span> <span class="kt">Customer</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Account</span><span class="o">]</span>
  <span class="k">def</span> <span class="nf">credit</span><span class="o">(</span><span class="n">account</span><span class="k">:</span> <span class="kt">Account</span><span class="o">,</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
  <span class="k">def</span> <span class="nf">debit</span><span class="o">(</span><span class="n">account</span><span class="k">:</span> <span class="kt">Account</span><span class="o">,</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
@@ -241,7 +241,7 @@ The <code class="highlighter-rouge">def transfer</code> is returning  <code clas
 
 <p>Let’s do it by using scalaz disjunction</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">scalaz._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">import</span> <span class="nn">scalaz._</span>
 <span class="k">import</span> <span class="nn">Scalaz._</span>
 <span class="k">import</span> <span class="nn">scalaz.std.option.optionSyntax._</span>
 
@@ -318,6 +318,32 @@ The <code class="highlighter-rouge">def transfer</code> is returning  <code clas
 
 <div class="grid__item">
   
+    <a href="/trampoline-scala-stack-saftey/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Trampoline - A better way for stack safety in Scala
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  2 minutes read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are ways to be stack safe.
+
+</p>
+    </article>
+  </a>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  
     <a href="/tagless-final-vs-free-monad/">
   
     <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
@@ -386,33 +412,6 @@ This article is about how do we write description...</p>
 
   If we define case class , compiler will automatically generate unapply for you.
   When used for pattern ma...</p>
-    </article>
-  </a>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  
-    <a href="/shorten-ssh/">
-  
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      
-      <h2 class="archive__item-title" itemprop="headline">Shorten ssh
-</h2>
-      
-        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  less than 1 minute read
-</p>
-      
-      <p class="archive__item-excerpt" itemprop="description">Every time we do operation on remote machine need specify hostname , user and .pem
-Example
-
-</p>
     </article>
   </a>
 </div>

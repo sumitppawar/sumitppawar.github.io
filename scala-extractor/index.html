@@ -237,7 +237,7 @@
   <li>Type that we want decompose has only one parameter.</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>  
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>  
 <span class="c1">// If we define Pesron as a case class compile will generate unapply
 </span><span class="k">object</span> <span class="nc">Person</span> <span class="o">{</span>
    <span class="k">def</span> <span class="nf">unapply</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Option</span><span class="o">(</span><span class="nv">p</span><span class="o">.</span><span class="py">name</span><span class="o">)</span>
@@ -252,7 +252,7 @@
   <li>Type that we want decompose has multiple parameters.</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="nv">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="nv">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
 
 <span class="k">object</span> <span class="nc">Person</span> <span class="o">{</span>
 	<span class="k">def</span> <span class="nf">unapply</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">Option</span><span class="o">((</span><span class="nv">p</span><span class="o">.</span><span class="py">name</span><span class="o">,</span> <span class="nv">p</span><span class="o">.</span><span class="py">age</span><span class="o">))</span>
@@ -272,7 +272,7 @@
   </li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="nv">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="nv">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="nv">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
 <span class="k">object</span> <span class="nc">PersonAgeValidator</span> <span class="o">{</span>
 	<span class="k">def</span> <span class="nf">unapply</span><span class="o">(</span><span class="n">p</span><span class="k">:</span> <span class="kt">Person</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="nf">if</span><span class="o">(</span><span class="nv">p</span><span class="o">.</span><span class="py">age</span><span class="o">&gt;</span><span class="mi">27</span><span class="o">)</span> <span class="kc">true</span> <span class="k">else</span> <span class="kc">false</span>
 <span class="o">}</span>
@@ -293,7 +293,7 @@
   </li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">27</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">27</span><span class="o">)</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="n">name</span> <span class="nc">Person</span> <span class="n">age</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="s">"Awesome"</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -306,7 +306,7 @@
   </li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code>
 <span class="k">object</span> <span class="nc">#::</span> <span class="o">{</span>
 	<span class="k">def</span> <span class="nf">unapply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">xs</span><span class="k">:</span> <span class="kt">Stream</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">A</span>, <span class="kt">Stream</span><span class="o">[</span><span class="kt">A</span><span class="o">])]</span> <span class="k">=</span>
 		<span class="nf">if</span> <span class="o">(</span><span class="nv">xs</span><span class="o">.</span><span class="py">isEmpty</span><span class="o">)</span> <span class="nc">None</span>
@@ -322,7 +322,7 @@
   <li>Extracting multiple element</li>
 </ul>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="nv">Stream</span><span class="o">.</span><span class="py">empty</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">val</span> <span class="nv">stream</span> <span class="k">=</span> <span class="mi">1</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="mi">2</span> <span class="o">#::</span> <span class="nv">Stream</span><span class="o">.</span><span class="py">empty</span>
 <span class="n">stream</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="o">#::(</span><span class="n">head</span><span class="o">,</span> <span class="o">#::</span> <span class="o">(</span><span class="n">second</span><span class="o">,</span><span class="n">tail</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="nf">println</span><span class="o">(</span><span class="n">s</span><span class="s">"$head"</span><span class="o">)</span>
 	<span class="k">case</span> <span class="k">_</span> <span class="k">=&gt;</span> <span class="s">"Empty"</span>
@@ -383,6 +383,32 @@
         <h4 class="page__related-title">You May Also Enjoy</h4>
       
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/trampoline-scala-stack-saftey/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Trampoline - A better way for stack safety in Scala
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  2 minutes read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are ways to be stack safe.
+
+</p>
+    </article>
+  </a>
+</div>
         
           
 
@@ -456,33 +482,6 @@ This article is about how do we write description...</p>
       
       <p class="archive__item-excerpt" itemprop="description">Scalaz provides disjunction \/ which is kind of scala’s Either. 
 It provides ways to convert different type to disjunction and it compose.
-
-</p>
-    </article>
-  </a>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  
-    <a href="/shorten-ssh/">
-  
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      
-      <h2 class="archive__item-title" itemprop="headline">Shorten ssh
-</h2>
-      
-        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-  less than 1 minute read
-</p>
-      
-      <p class="archive__item-excerpt" itemprop="description">Every time we do operation on remote machine need specify hostname , user and .pem
-Example
 
 </p>
     </article>

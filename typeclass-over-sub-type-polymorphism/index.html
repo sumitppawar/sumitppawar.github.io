@@ -1,219 +1,235 @@
-<!DOCTYPE html>
+
+
+<!doctype html>
 <html lang="en" class="no-js">
   <head>
-    <meta charset="utf-8" />
+    
 
-    <!-- begin SEO -->
+<meta charset="utf-8">
 
-    <title>
-      Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism - _
-      =&gt; FP
-    </title>
 
-    <meta property="og:locale" content="en-US" />
-    <meta property="og:site_name" content="_ => FP" />
-    <meta
-      property="og:title"
-      content="Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism"
-    />
 
-    <meta
-      property="og:description"
-      content="Let’s assume that we want add a def ++[A](a: A, b:A):A on type  A"
-    />
+<!-- begin SEO -->
 
-    <meta property="og:type" content="article" />
-    <meta
-      property="article:published_time"
-      content="2017-01-01T16:51:20+08:00"
-    />
 
-    <link
-      rel="next"
-      href="/tagless-final-vs-free-monad/"
-      title="Tagless Final Vs Free monads"
-    />
 
-    <link
-      rel="prev"
-      href="/composing-scalaz-disjunction/"
-      title="Composing scalaz disjunction"
-    />
 
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "person",
-        "name": "Sumit Pawar",
-        "url": null,
-        "sameAs": null
-      }
-    </script>
 
-    <!-- end SEO -->
 
-    <link
-      href="/feed.xml"
-      type="application/atom+xml"
-      rel="alternate"
-      title="_ => FP Feed"
-    />
 
-    <!-- http://t.co/dKP3o1e -->
-    <meta name="HandheldFriendly" content="True" />
-    <meta name="MobileOptimized" content="320" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script>
-      document.documentElement.className =
-        document.documentElement.className.replace(/\bno-js\b/g, "") + " js ";
-    </script>
 
-    <!-- For all browsers -->
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <!-- <link rel="stylesheet" href="/assets/css/solarized-light.css"> -->
+<title>Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism - _ =&gt; FP</title>
 
-    <meta http-equiv="cleartype" content="on" />
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="_ => FP">
+<meta property="og:title" content="Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism">
+
+
+
+
+  <meta property="og:description" content="Let’s assume that we want add a def ++[A](a: A, b:A):A on type  A">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-01-01T16:51:20+08:00">
+  
+    <link rel="next" href="/tagless-final-vs-free-monad/" title="Tagless Final Vs Free monads">
+  
+  
+    <link rel="prev" href="/composing-scalaz-disjunction/" title="Composing scalaz disjunction">
+  
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "person",
+      "name" : "Sumit Pawar",
+      "url" : null,
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="_ => FP Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<!-- <link rel="stylesheet" href="/assets/css/solarized-light.css"> -->
+
+<meta http-equiv="cleartype" content="on">
 
     <!-- start custom head snippets -->
 
-    <!-- insert favicons. use http://realfavicongenerator.net/ -->
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
 
-    <!-- end custom head snippets -->
+<!-- end custom head snippets -->
   </head>
 
   <body>
+
     <!--[if lt IE 9]>
-      <div class="notice--danger align-center" style="margin: 0;">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="http://browsehappy.com/">upgrade your browser</a> to improve
-        your experience.
-      </div>
-    <![endif]-->
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
 
-    <div class="masthead">
-      <div class="masthead__inner-wrap">
-        <div class="masthead__menu">
-          <nav id="site-nav" class="greedy-nav">
-            <button><div class="navicon"></div></button>
-            <ul class="visible-links">
-              <li class="masthead__menu-item masthead__menu-item--lg">
-                <a href="/">_ => FP</a>
-              </li>
-
-              <li class="masthead__menu-item">
-                <a href="http://www.pawarsumit.com/about">About</a>
-              </li>
-            </ul>
-            <ul class="hidden-links hidden"></ul>
-          </nav>
-        </div>
-      </div>
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="/">_ => FP</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.pawarsumit.com/about">About</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
     </div>
+  </div>
+</div>
 
-    <div id="main" role="main">
-      <div class="sidebar sticky">
-        <div itemscope itemtype="http://schema.org/Person">
-          <div class="author__avatar">
-            <img
-              src="/images/bio-photo.png"
-              class="author__avatar"
-              alt="Sumit Pawar"
-            />
-          </div>
+    
 
-          <div class="author__content">
-            <h3 class="author__name">Sumit Pawar</h3>
-            <p class="author__bio">Scala programmer.</p>
-          </div>
 
-          <div class="author__urls-wrapper">
-            <button class="btn btn--inverse">Follow</button>
-            <ul class="author__urls social-icons">
-              <li>
-                <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i>
-                Singapore
-              </li>
 
-              <li>
-                <a href="http://www.pawarsumit.com"
-                  ><i class="fa fa-fw fa-chain" aria-hidden="true"></i>
-                  Website</a
-                >
-              </li>
 
-              <li>
-                <a href="mailto:sumitppawar@gmail.com"
-                  ><i
-                    class="fa fa-fw fa-envelope-square"
-                    aria-hidden="true"
-                  ></i>
-                  Email</a
-                >
-              </li>
 
-              <li>
-                <a href="http://linkedin.com/in/sumit-pawar-6b01a963"
-                  ><i
-                    class="fa fa-fw fa-linkedin-square"
-                    aria-hidden="true"
-                  ></i>
-                  LinkedIn</a
-                >
-              </li>
+<div id="main" role="main">
+  
 
-              <li>
-                <a href="http://github.com/sumitppawar"
-                  ><i class="fa fa-fw fa-github" aria-hidden="true"></i>
-                  Github</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
 
-      <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-        <meta
-          itemprop="headline"
-          content="Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism"
-        />
-        <meta
-          itemprop="description"
-          content="Let’s assume that we want add a def ++[A](a: A, b:A):A on type  A"
-        />
-        <meta itemprop="datePublished" content="January 01, 2017" />
+  <div class="sidebar sticky">
+  
 
-        <div class="page__inner-wrap">
-          <header>
-            <h1 class="page__title" itemprop="headline">
-              Better Scala - Prefer ad-hoc Polymorphism over sub-type
-              Polymorphism
-            </h1>
 
-            <p class="page__meta">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
 
-              less than 1 minute read
-            </p>
-          </header>
+<div itemscope itemtype="http://schema.org/Person">
 
-          <section class="page__content" itemprop="text">
-            <p>
-              Let’s assume that we want add a
-              <code class="highlighter-rouge">def ++[A](a: A, b:A):A</code> on
-              type <code class="highlighter-rouge">A</code>
-            </p>
+  <div class="author__avatar">
+    
+    	<img src="/images/bio-photo.png" class="author__avatar" alt="Sumit Pawar">
+    
+  </div>
 
-            <ol>
-              <li>Using <strong>Sub-Type</strong> Polymorphism</li>
-            </ol>
+  <div class="author__content">
+    <h3 class="author__name">Sumit Pawar</h3>
+    <p class="author__bio">Scala programmer.</p>
+  </div>
 
-            <div class="language-scala highlighter-rouge">
-              <div>
-                <pre
-                  class="highlight"
-                ><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Singapore</li>
+      
+      
+        <li><a href="http://www.pawarsumit.com"><i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website</a></li>
+      
+      
+        <li><a href="mailto:sumitppawar@gmail.com"><i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+      
+      
+      
+      
+      
+      
+        <li><a href="http://linkedin.com/in/sumit-pawar-6b01a963"><i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn</a></li>
+      
+      
+      
+      
+      
+      
+        <li><a href="http://github.com/sumitppawar"><i class="fa fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism">
+    <meta itemprop="description" content="Let’s assume that we want add a def ++[A](a: A, b:A):A on type  A">
+    <meta itemprop="datePublished" content="January 01, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  less than 1 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Let’s assume that we want add a <code class="highlighter-rouge">def ++[A](a: A, b:A):A</code> on type  <code class="highlighter-rouge">A</code></p>
+
+<ol>
+  <li>Using <strong>Sub-Type</strong> Polymorphism</li>
+</ol>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
   <span class="k">def</span> <span class="nf">plus</span><span class="o">(</span><span class="n">b</span><span class="k">:</span><span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>  
 <span class="o">}</span>  
   
@@ -223,44 +239,25 @@
   <span class="k">def</span> <span class="nf">plus</span><span class="o">(</span><span class="n">b</span><span class="k">:</span><span class="kt">Money</span><span class="o">)</span><span class="k">:</span> <span class="kt">Money</span> <span class="o">=</span> <span class="nc">Money</span><span class="o">(</span><span class="n">n</span><span class="o">+</span><span class="nv">b</span><span class="o">.</span><span class="py">n</span><span class="o">)</span>  
 <span class="o">}</span>  
 <span class="o">++(</span><span class="nc">Money</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nc">Money</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span>
-</code></pre>
-              </div>
-            </div>
-            <ul>
-              <li>
-                In above example , we are saying that
-                <code class="highlighter-rouge"
-                  >def + will work for any type A which is sub-type of
-                  Plus</code
-                >
-              </li>
-              <li>
-                Limitations
-                <ul>
-                  <li>
-                    How to add
-                    <code class="highlighter-rouge">+</code> operation for type
-                    which are coming for other Lib or do not have access
-                    <ul>
-                      <li>
-                        Example
-                        <code class="highlighter-rouge">String, Int </code>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+</code></pre></div></div>
+<ul>
+  <li>In above example , we are saying that <code class="highlighter-rouge">def + will work for any type A which is sub-type of Plus</code></li>
+  <li>Limitations
+    <ul>
+      <li>How to add <code class="highlighter-rouge">+</code> operation for type which are coming for other Lib or do not have access
+        <ul>
+          <li>Example <code class="highlighter-rouge">String, Int </code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-            <ol>
-              <li>Using <strong>Ad-hoc</strong> Polymorphism (TypeClass)</li>
-            </ol>
+<ol>
+  <li>Using <strong>Ad-hoc</strong>  Polymorphism (TypeClass)</li>
+</ol>
 
-            <div class="language-scala highlighter-rouge">
-              <div>
-                <pre
-                  class="highlight"
-                ><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
   <span class="k">def</span> <span class="nf">plus</span><span class="o">(</span><span class="n">a</span><span class="k">:</span><span class="kt">A</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span><span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>  
 <span class="o">}</span>  
 <span class="k">def</span> <span class="nf">++</span><span class="o">[</span><span class="kt">A:Plus</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span><span class="kt">A</span><span class="o">)</span><span class="k">:</span><span class="kt">A</span> <span class="o">=</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]].</span><span class="py">plus</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span>  
@@ -270,190 +267,207 @@
   <span class="k">override</span> <span class="k">def</span> <span class="nf">plus</span><span class="o">(</span><span class="n">a</span><span class="k">:</span> <span class="kt">Money</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Money</span><span class="o">)</span><span class="k">:</span> <span class="kt">Money</span> <span class="o">=</span> <span class="nc">Money</span><span class="o">(</span><span class="nv">a</span><span class="o">.</span><span class="py">n</span> <span class="o">+</span> <span class="nv">b</span><span class="o">.</span><span class="py">n</span><span class="o">)</span>  
 <span class="o">}</span>  
 <span class="o">++(</span><span class="nc">Money</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nc">Money</span><span class="o">(</span><span class="mi">2</span><span class="o">))</span>
-</code></pre>
-              </div>
-            </div>
-            <ul>
-              <li>No sub-typing (No issues with we get using inheritance)</li>
-              <li>
-                We can add behaviour to any Type without know anything about
-                type or source code
-              </li>
-              <li>
-                The function definitions can be enabled or disabled in different
-                scopes
-              </li>
-            </ul>
-          </section>
+</code></pre></div></div>
+<ul>
+  <li>No sub-typing  (No issues with we get using inheritance)</li>
+  <li>We can add behaviour to any Type without know anything about type or source code</li>
+  <li>The function definitions can be enabled or disabled in different scopes</li>
+</ul>
 
-          <footer class="page__meta">
-            <p class="page__date">
-              <strong
-                ><i class="fa fa-fw fa-calendar" aria-hidden="true"></i>
-                Updated:</strong
-              >
-              <time datetime="2017-01-01T16:51:20+08:00">January 01, 2017</time>
-            </p>
-          </footer>
+        
+      </section>
 
-          <section class="page__share">
-            <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=/typeclass-over-sub-type-polymorphism/" class="btn btn--facebook" title=" Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+      <footer class="page__meta">
+        
+        
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-01-01T16:51:20+08:00">January 01, 2017</time></p>
+        
+      </footer>
+
+      
+
+<section class="page__share">
+  
+
+  <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=/typeclass-over-sub-type-polymorphism/" class="btn btn--facebook" title=" Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
    !--
    !-- <a href="https://plus.google.com/share?url=/typeclass-over-sub-type-polymorphism/" class="btn btn--google-plus" title=" Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
    !--
    !-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=/typeclass-over-sub-type-polymorphism/" class="btn btn--linkedin" title=" LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a> -->
-          </section>
+</section>
 
-          <nav class="pagination">
-            <a
-              href="/composing-scalaz-disjunction/"
-              class="pagination--pager"
-              title="Composing scalaz disjunction
-"
-              >Previous</a
-            >
 
-            <a
-              href="/tagless-final-vs-free-monad/"
-              class="pagination--pager"
-              title="Tagless Final Vs Free monads
-"
-              >Next</a
-            >
-          </nav>
-        </div>
-      </article>
+      
 
-      <div class="page__related">
+
+  <nav class="pagination">
+    
+      <a href="/composing-scalaz-disjunction/" class="pagination--pager" title="Composing scalaz disjunction
+">Previous</a>
+    
+    
+      <a href="/tagless-final-vs-free-monad/" class="pagination--pager" title="Tagless Final Vs Free monads
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
         <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
 
-        <div class="grid__wrapper">
-          <div class="grid__item">
-            <a href="/tagless-final-vs-free-monad/">
-              <article
-                class="archive__item"
-                itemscope
-                itemtype="http://schema.org/CreativeWork"
-              >
-                <h2 class="archive__item-title" itemprop="headline">
-                  Tagless Final Vs Free monads
-                </h2>
 
-                <p class="page__meta">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
 
-                  1 minute read
-                </p>
+<div class="grid__item">
+  
+    <a href="/trampoline-scala-stack-saftey/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Trampoline - A better way for stack safety in Scala
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
-                <p class="archive__item-excerpt" itemprop="description">
-                  World of functional programing is more about writing code
-                  which focus on What (Algebra)? rather than how ?. This article
-                  is about how do we write description...
-                </p>
-              </article>
-            </a>
-          </div>
 
-          <div class="grid__item">
-            <a href="/composing-scalaz-disjunction/">
-              <article
-                class="archive__item"
-                itemscope
-                itemtype="http://schema.org/CreativeWork"
-              >
-                <h2 class="archive__item-title" itemprop="headline">
-                  Composing scalaz disjunction
-                </h2>
+  2 minutes read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are ways to be stack safe.
 
-                <p class="page__meta">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+</p>
+    </article>
+  </a>
+</div>
+        
+          
 
-                  less than 1 minute read
-                </p>
 
-                <p class="archive__item-excerpt" itemprop="description">
-                  Scalaz provides disjunction \/ which is kind of scala’s
-                  Either. It provides ways to convert different type to
-                  disjunction and it compose.
-                </p>
-              </article>
-            </a>
-          </div>
 
-          <div class="grid__item">
-            <a href="/scala-extractor/">
-              <article
-                class="archive__item"
-                itemscope
-                itemtype="http://schema.org/CreativeWork"
-              >
-                <h2 class="archive__item-title" itemprop="headline">
-                  Scala Extractors
-                </h2>
+<div class="grid__item">
+  
+    <a href="/tagless-final-vs-free-monad/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Tagless Final Vs Free monads
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
-                <p class="page__meta">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
 
-                  1 minute read
-                </p>
+  1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">World of functional programing is more about writing code which focus on What (Algebra)? rather than how ?.
+This article is about how do we write description...</p>
+    </article>
+  </a>
+</div>
+        
+          
 
-                <p class="archive__item-excerpt" itemprop="description">
-                  Scala extractors are used for pattern matching. If we define
-                  case class , compiler will automatically generate unapply for
-                  you. When used for pattern ma...
-                </p>
-              </article>
-            </a>
-          </div>
 
-          <div class="grid__item">
-            <a href="/shorten-ssh/">
-              <article
-                class="archive__item"
-                itemscope
-                itemtype="http://schema.org/CreativeWork"
-              >
-                <h2 class="archive__item-title" itemprop="headline">
-                  Shorten ssh
-                </h2>
 
-                <p class="page__meta">
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+<div class="grid__item">
+  
+    <a href="/composing-scalaz-disjunction/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Composing scalaz disjunction
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
 
-                  less than 1 minute read
-                </p>
 
-                <p class="archive__item-excerpt" itemprop="description">
-                  Every time we do operation on remote machine need specify
-                  hostname , user and .pem Example
-                </p>
-              </article>
-            </a>
-          </div>
-        </div>
+  less than 1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">Scalaz provides disjunction \/ which is kind of scala’s Either. 
+It provides ways to convert different type to disjunction and it compose.
+
+</p>
+    </article>
+  </a>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/scala-extractor/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Scala Extractors
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">Scala extractors are used for pattern matching.
+
+  If we define case class , compiler will automatically generate unapply for you.
+  When used for pattern ma...</p>
+    </article>
+  </a>
+</div>
+        
       </div>
     </div>
+  
+</div>
+
 
     <div class="page__footer">
       <footer>
-        <div class="page__footer-follow">
-          <ul class="social-icons">
-            <li><strong>Follow:</strong></li>
+        
 
-            <li>
-              <a href="http://github.com/sumitppawar"
-                ><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a
-              >
-            </li>
-          </ul>
-        </div>
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/sumitppawar"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+  </ul>
+</div>
+
+
       </footer>
     </div>
 
     <script src="/assets/js/main.min.js"></script>
 
+
+
+
     <!-- start custom footer snippets -->
 
-    <!-- end custom footer snippets -->
+<!-- end custom footer snippets -->
+
   </body>
 </html>
+
