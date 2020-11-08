@@ -228,7 +228,7 @@ It provides ways to convert different type to disjunction and it compose.</p>
 
 <p>Let’s start with example 
 Assume that we have different functions as below</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code> <span class="k">def</span> <span class="nf">findCustomerById</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Customer</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code> <span class="k">def</span> <span class="nf">findCustomerById</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Long</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Customer</span><span class="o">]</span>
  <span class="k">def</span> <span class="nf">getCustomerAccount</span><span class="o">(</span><span class="n">customer</span><span class="k">:</span> <span class="kt">Customer</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Account</span><span class="o">]</span>
  <span class="k">def</span> <span class="nf">credit</span><span class="o">(</span><span class="n">account</span><span class="k">:</span> <span class="kt">Account</span><span class="o">,</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
  <span class="k">def</span> <span class="nf">debit</span><span class="o">(</span><span class="n">account</span><span class="k">:</span> <span class="kt">Account</span><span class="o">,</span> <span class="n">amount</span><span class="k">:</span> <span class="kt">Double</span><span class="o">)</span><span class="k">:</span> <span class="kt">Try</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
@@ -241,7 +241,7 @@ The <code class="highlighter-rouge">def transfer</code> is returning  <code clas
 
 <p>Let’s do it by using scalaz disjunction</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">import</span> <span class="nn">scalaz._</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">import</span> <span class="nn">scalaz._</span>
 <span class="k">import</span> <span class="nn">Scalaz._</span>
 <span class="k">import</span> <span class="nn">scalaz.std.option.optionSyntax._</span>
 
@@ -331,7 +331,7 @@ The <code class="highlighter-rouge">def transfer</code> is returning  <code clas
   2 minutes read
 </p>
       
-      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are ways to be stack safe.
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are the ways to be stack safe.
 
 </p>
     </article>

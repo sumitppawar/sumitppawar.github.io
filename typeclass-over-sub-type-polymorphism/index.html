@@ -229,7 +229,7 @@
   <li>Using <strong>Sub-Type</strong> Polymorphism</li>
 </ol>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
   <span class="k">def</span> <span class="nf">plus</span><span class="o">(</span><span class="n">b</span><span class="k">:</span><span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>  
 <span class="o">}</span>  
   
@@ -257,7 +257,7 @@
   <li>Using <strong>Ad-hoc</strong>  Polymorphism (TypeClass)</li>
 </ol>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">trait</span> <span class="nc">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="o">{</span>  
   <span class="k">def</span> <span class="nf">plus</span><span class="o">(</span><span class="n">a</span><span class="k">:</span><span class="kt">A</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span><span class="kt">A</span><span class="o">)</span><span class="k">:</span> <span class="kt">A</span>  
 <span class="o">}</span>  
 <span class="k">def</span> <span class="nf">++</span><span class="o">[</span><span class="kt">A:Plus</span><span class="o">](</span><span class="n">a</span><span class="k">:</span> <span class="kt">A</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span><span class="kt">A</span><span class="o">)</span><span class="k">:</span><span class="kt">A</span> <span class="o">=</span> <span class="n">implicitly</span><span class="o">[</span><span class="kt">Plus</span><span class="o">[</span><span class="kt">A</span><span class="o">]].</span><span class="py">plus</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span>  
@@ -348,7 +348,7 @@
   2 minutes read
 </p>
       
-      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are ways to be stack safe.
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are the ways to be stack safe.
 
 </p>
     </article>

@@ -230,7 +230,7 @@ This article is about how do we write description of a program (<strong>Algebra/
 
 <p>Let’s consider a small requirement of authenticate user token and fetch all the resources that user has access:</p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Id</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">case</span> <span class="k">class</span> <span class="nc">User</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">Id</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 <span class="k">case</span> <span class="k">class</span> <span class="nc">Resources</span><span class="o">(</span><span class="n">code</span><span class="k">:</span> <span class="kt">ResourceCode</span><span class="o">,</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 </code></pre></div></div>
 
@@ -253,7 +253,7 @@ This article is about how do we write description of a program (<strong>Algebra/
 
 <p>Let’s define algebra for <code class="highlighter-rouge">UserRespositoryAlg</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">trait</span> <span class="nc">UserRespositoryAlg</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">trait</span> <span class="nc">UserRespositoryAlg</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]]</span> <span class="o">{</span>
 	<span class="k">def</span> <span class="nf">validateToken</span><span class="o">(</span><span class="n">token</span><span class="k">:</span> <span class="kt">Token</span><span class="o">)</span><span class="k">:</span><span class="kt">F</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>    <span class="c1">//&lt;- expression for token validation
 </span>	<span class="k">def</span> <span class="nf">findUser</span><span class="o">(</span><span class="n">token</span><span class="k">:</span> <span class="kt">Token</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span> <span class="c1">//&lt;- expression for find user
 </span>	<span class="k">def</span> <span class="nf">getUserResources</span><span class="o">(</span><span class="n">userId</span><span class="k">:</span> <span class="kt">Id</span><span class="o">)</span><span class="k">:</span> <span class="kt">F</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Resource</span><span class="o">]]</span> <span class="c1">//&lt;- expression for find Resource
@@ -276,7 +276,7 @@ This article is about how do we write description of a program (<strong>Algebra/
 
 <p>Let’s define interpreter for above <code class="highlighter-rouge">UserRepositoryAlg</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">import</span> <span class="nn">scalaz._</span> <span class="c1">//Using scalaz for monad instance of Future
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">import</span> <span class="nn">scalaz._</span> <span class="c1">//Using scalaz for monad instance of Future
 </span><span class="k">import</span> <span class="nn">Scalaz._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext.Implicits.global</span>
 <span class="k">object</span> <span class="nc">UserRespositoryInterpreter</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="kt">:Applicative</span><span class="o">]</span> <span class="nc">extends</span> <span class="nc">UserRespositoryAlg</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span> <span class="o">{</span>
@@ -304,7 +304,7 @@ This article is about how do we write description of a program (<strong>Algebra/
   </li>
 </ol>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="c1">// All together
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="c1">// All together
 </span><span class="k">import</span> <span class="nn">scalaz._</span>
 <span class="k">import</span> <span class="nn">Scalaz._</span>
 <span class="k">import</span> <span class="nn">scala.concurrent.Await</span>
@@ -333,7 +333,7 @@ This article is about how do we write description of a program (<strong>Algebra/
       <li>Let’s define above expressions as <code class="highlighter-rouge">ADT</code> (Algebraic Data Types)</li>
     </ul>
 
-    <div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="c1">//Operations as data
+    <div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="c1">//Operations as data
 </span><span class="k">trait</span> <span class="nc">UserRespositoryAlg</span><span class="o">[</span><span class="kt">S</span><span class="o">]</span>
 <span class="nc">case</span> <span class="k">class</span> <span class="nc">ValidateToken</span><span class="o">(</span><span class="n">token</span><span class="k">:</span> <span class="kt">Token</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">UserRespositoryAlg</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span>
 <span class="k">case</span> <span class="k">class</span> <span class="nc">FindUser</span><span class="o">(</span><span class="n">token</span><span class="k">:</span> <span class="kt">Token</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">UserRespositoryAlg</span><span class="o">[</span><span class="kt">User</span><span class="o">]</span>
@@ -357,7 +357,7 @@ This article is about how do we write description of a program (<strong>Algebra/
   </li>
 </ol>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code>
 <span class="k">val</span> <span class="nv">userRepoInterpreter</span> <span class="k">=</span> <span class="nf">new</span> <span class="o">(</span><span class="nc">UserRespositoryAlg</span> <span class="o">~&gt;</span> <span class="nc">Future</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// scalaz way to define free monad interpreter
 </span>  <span class="k">override</span> <span class="k">def</span> <span class="nf">apply</span><span class="o">[</span><span class="kt">A</span><span class="o">](</span><span class="n">fa</span><span class="k">:</span> <span class="kt">UserRespositoryAlg</span><span class="o">[</span><span class="kt">A</span><span class="o">])</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="k">=</span> <span class="n">fa</span>  <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">ValidateToken</span><span class="o">(</span><span class="n">token</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nv">Future</span><span class="o">.</span><span class="py">success</span><span class="o">(())</span>
@@ -454,7 +454,7 @@ This article is about how do we write description of a program (<strong>Algebra/
   2 minutes read
 </p>
       
-      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are ways to be stack safe.
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are the ways to be stack safe.
 
 </p>
     </article>

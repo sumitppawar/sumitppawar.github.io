@@ -19,6 +19,7 @@
 
 
 
+
 <title>Trampoline - A better way for stack safety in Scala - _ =&gt; FP</title>
 
 
@@ -34,7 +35,7 @@
 
 
 
-  <meta property="og:description" content="This read is about being stack safety in scala and what are ways to be stack safe.">
+  <meta property="og:description" content="This read is about being stack safety in scala and what are the ways to be stack safe.">
 
 
 
@@ -201,7 +202,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Trampoline - A better way for stack safety in Scala">
-    <meta itemprop="description" content="This read is about being stack safety in scala and what are ways to be stack safe.">
+    <meta itemprop="description" content="This read is about being stack safety in scala and what are the ways to be stack safe.">
     <meta itemprop="datePublished" content="August 13, 2020">
     
 
@@ -221,12 +222,12 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>This read is about being stack safety in scala and what are ways to be stack safe.</p>
+        <p>This read is about being stack safety in scala and what are the ways to be stack safe.</p>
 
 <p>Before getting into <code class="highlighter-rouge">Trampoline</code> first let’s understand  what is tail recursion ? And how  <code class="highlighter-rouge">scala compiler</code> optimize it ?</p>
 
 <p>Suppose we want to write a function which will return <code class="highlighter-rouge">sum of all number in given List</code></p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="mi">0</span>
 	<span class="k">case</span> <span class="n">head</span><span class="o">::</span><span class="n">tail</span> <span class="k">=&gt;</span> 
 		<span class="n">head</span> <span class="o">+</span> <span class="nf">sum</span><span class="o">(</span><span class="n">tail</span><span class="o">)</span>
@@ -244,7 +245,7 @@
 </ol>
 
 <p>Let’s rewrite above to remove dependency of previous stack</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="n">sum</span>
 	<span class="k">case</span> <span class="n">head</span><span class="o">::</span><span class="n">tail</span> <span class="k">=&gt;</span> 
 		<span class="nf">sum</span><span class="o">(</span><span class="n">tail</span><span class="o">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">head</span><span class="o">)</span>
@@ -260,7 +261,7 @@ So even with above solution with <code class="highlighter-rouge">tail recursive<
 
 <p>As runtime doesn’t do anything about the tail call optimization <code class="highlighter-rouge">Scala compiler</code> provide way to convert <code class="highlighter-rouge">tail recursive</code> into <code class="highlighter-rouge">loop</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="nd">@scala</span><span class="o">.</span><span class="py">annotation</span><span class="o">.</span><span class="py">tailrec</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="nd">@scala</span><span class="o">.</span><span class="py">annotation</span><span class="o">.</span><span class="py">tailrec</span>
 <span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="n">sum</span>
 	<span class="k">case</span> <span class="n">head</span><span class="o">::</span><span class="n">tail</span> <span class="k">=&gt;</span> 
@@ -290,12 +291,12 @@ Yes,  and  <strong><code class="highlighter-rouge">Trampoline</code></strong> it
 </ol>
 
 <p>Lets define <code class="highlighter-rouge">Trampoline</code>  ADT</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Trampoline</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Trampoline</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
 <span class="nc">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Done</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">value</span><span class="k">:</span> <span class="kt">T</span><span class="o">)</span> <span class="k">extends</span>  <span class="nc">Trampoline</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">More</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">next</span><span class="k">:</span> <span class="o">()</span> <span class="o">=&gt;</span> <span class="nc">Trampoline</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span>
 </code></pre></div></div>
 <p>Now we have ADT for  <code class="highlighter-rouge">Trampoline</code> let’s define recursive method using above</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Trampoline</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">sum</span><span class="o">(</span><span class="n">seq</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">],</span> <span class="n">sum</span><span class="k">:</span> <span class="kt">Long</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span><span class="k">:</span> <span class="kt">Trampoline</span><span class="o">[</span><span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">seq</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="nc">Nil</span> <span class="k">=&gt;</span> <span class="nc">Done</span><span class="o">(</span><span class="n">sum</span><span class="o">)</span>
 	<span class="k">case</span> <span class="n">head</span><span class="o">::</span><span class="n">tail</span> <span class="k">=&gt;</span> 
 		<span class="nc">More</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="nf">sum</span><span class="o">(</span><span class="n">tail</span><span class="o">,</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">head</span><span class="o">))</span>
@@ -303,17 +304,17 @@ Yes,  and  <strong><code class="highlighter-rouge">Trampoline</code></strong> it
 </code></pre></div></div>
 
 <p>As per above by calling , will get <code class="highlighter-rouge">Trampoline</code> ADT</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">val</span> <span class="nv">trampoline</span><span class="k">:</span> <span class="kt">Trampoline</span> <span class="o">=</span> <span class="nf">sum</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">))</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">val</span> <span class="nv">trampoline</span><span class="k">:</span> <span class="kt">Trampoline</span> <span class="o">=</span> <span class="nf">sum</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">))</span>
 </code></pre></div></div>
 <p>Let’s write interpreter for <code class="highlighter-rouge">Trampoline</code> algebra</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">def</span> <span class="nf">run</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">trampoline</span><span class="k">:</span> <span class="kt">Trampoline</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=</span> <span class="n">trampoline</span> <span class="k">match</span> <span class="o">{</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">def</span> <span class="nf">run</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">trampoline</span><span class="k">:</span> <span class="kt">Trampoline</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span><span class="k">:</span> <span class="kt">T</span> <span class="o">=</span> <span class="n">trampoline</span> <span class="k">match</span> <span class="o">{</span>
 	<span class="k">case</span> <span class="nc">Done</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">value</span> 
 	<span class="k">case</span> <span class="nc">More</span><span class="o">(</span><span class="n">f</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="nf">run</span><span class="o">(</span><span class="nf">f</span><span class="o">())</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>Let’s get value</p>
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre ><code><span class="k">val</span> <span class="nv">trampoline</span><span class="k">:</span> <span class="kt">Trampoline</span> <span class="o">=</span> <span class="nf">sum</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">))</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre><code><span class="k">val</span> <span class="nv">trampoline</span><span class="k">:</span> <span class="kt">Trampoline</span> <span class="o">=</span> <span class="nf">sum</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">))</span>
 <span class="nf">run</span><span class="o">(</span><span class="n">trampoline</span><span class="o">)</span> <span class="c1">//6
 </span></code></pre></div></div>
 
