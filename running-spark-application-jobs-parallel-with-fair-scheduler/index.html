@@ -1,0 +1,486 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Running spark application jobs(actions) parallel with FAIR scheduler - _ =&gt; FP</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="_ => FP">
+<meta property="og:title" content="Running spark application jobs(actions) parallel with FAIR scheduler">
+
+
+
+
+  <meta property="og:description" content="This article is about, how to run spark application jobs parallel and available spark configurations.">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2022-06-13T16:51:20+08:00">
+  
+  
+    <link rel="prev" href="/trampoline-scala-stack-saftey/" title="Trampoline - A better way for stack safety in Scala">
+  
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "person",
+      "name" : "Sumit Pawar",
+      "url" : null,
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="_ => FP Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<!-- <link rel="stylesheet" href="/assets/css/solarized-light.css"> -->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="/">_ => FP</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://www.pawarsumit.com/about">About</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="/images/bio-photo.png" class="author__avatar" alt="Sumit Pawar">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Sumit Pawar</h3>
+    <p class="author__bio">Scala programmer.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Singapore</li>
+      
+      
+        <li><a href="http://www.pawarsumit.com"><i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website</a></li>
+      
+      
+        <li><a href="mailto:sumitppawar@gmail.com"><i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+      
+      
+      
+      
+      
+      
+        <li><a href="http://linkedin.com/in/sumit-pawar-6b01a963"><i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn</a></li>
+      
+      
+      
+      
+      
+      
+        <li><a href="http://github.com/sumitppawar"><i class="fa fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Running spark application jobs(actions) parallel with FAIR scheduler">
+    <meta itemprop="description" content="This article is about, how to run spark application jobs parallel and available spark configurations.">
+    <meta itemprop="datePublished" content="June 13, 2022">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Running spark application jobs(actions) parallel with FAIR scheduler
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  2 minutes read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>This article is about, how to run spark application jobs parallel and available spark configurations.</p>
+
+<p><strong>What is spark  job?</strong></p>
+<ul>
+  <li>Job is nothing but spark action (write, count, collect etc.) in a spark submit.
+Every Spark application divided into multiple jobs, job into stages and stage into  tasks.</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/sumitppawar/draw/master/Untitled%20Diagram.jpg" alt="job-stage-task" /></p>
+
+<ul>
+  <li>To make action (job) concurrent we need to run action on separate thread, but executing them concurrently is depends on the scheduler mode and resource required by each jobs.</li>
+  <li><strong>By default</strong> spark job scheduler executes job in <code class="highlighter-rouge">FIFO</code>, irrespective of jobs are created concurrently or sequentially in a spark submit.</li>
+  <li>In <code class="highlighter-rouge">FIFO</code> mode, all Resource is given to first job, if some left then it will be given to next in queue. If first job taking all resources then next queued job has to wait for resources.</li>
+</ul>
+
+<p><strong>How to execute concurrent jobs in parallel ?</strong></p>
+<ul>
+  <li>Spark provides another job scheduler mode called <code class="highlighter-rouge">FAIR</code>, it will distribute resources fairly to jobs.</li>
+  <li>Set configuration  <code class="highlighter-rouge">spark.scheduler.monde</code>  to <code class="highlighter-rouge">FAIR</code>, note this can only be set while creating spark  session.</li>
+  <li>Another note, even scheduler mode is <code class="highlighter-rouge">FAIR</code> but jobs are in sequence (not used separate thread) , it will be executed in sequence.</li>
+</ul>
+
+<p><strong>Let’s understand with example and code</strong></p>
+
+<p>In the below image, at right side we have input table and spark application will read input, union data to get more rows, finally write it to five times on local file system concurrently.</p>
+
+<p><img src="https://raw.githubusercontent.com/sumitppawar/draw/master/a.png" alt="spark-app" /></p>
+
+<p>Below code is in <code class="highlighter-rouge">Scala 2.13</code></p>
+<ul>
+  <li>Jobs(1,2,3,4,5) are running concurrently  using Scala  <code class="highlighter-rouge">Future</code>, on separate thread.</li>
+  <li>Data file is <a href="https://github.com/sumitppawar/data/blob/main/customers.csv">customers.csv</a></li>
+  <li>Also doing <code class="highlighter-rouge">union</code> on customer data before concurrent write to get more rows.</li>
+</ul>
+
+<p>Firstly, let’s run with default scheduler mode <strong><code class="highlighter-rouge">FIFO</code></strong></p>
+
+<script src="https://gist.github.com/sumitppawar/d43307acffacd43d181e68456d2de8ee.js"></script>
+
+<p>Spark UI screenshot for jobs, using <code class="highlighter-rouge">FIFO</code> mode.</p>
+<ul>
+  <li>Jobs(1,2,3,45) are submitted concurrently, but only one is running</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/sumitppawar/draw/master/fifo.png" alt="enter image description here" /></p>
+
+<p>Let’s set scheduler mode to <strong><code class="highlighter-rouge">FAIR</code></strong>  (<code class="highlighter-rouge">.config("spark.scheduler.mode", "FAIR")</code>)</p>
+
+<p>Below is spark UI screenshot for jobs, using <code class="highlighter-rouge">FAIR</code> mode.</p>
+<ul>
+  <li>UI is showing <code class="highlighter-rouge">Scheduling Mode: FAIR</code></li>
+  <li>Jobs(1,2,3,4,5) submitted concurrently, as the are active all together</li>
+  <li><code class="highlighter-rouge">Job(2)</code> and <code class="highlighter-rouge">Job(3)</code> are running parallel</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/sumitppawar/draw/master/fair.png" alt="enter image description here" /></p>
+
+<p><strong>Conclusion</strong></p>
+<ul>
+  <li>By default, spark scheduler mode is <code class="highlighter-rouge">FIFO</code> , which executes jobs(actions) in sequence as per resource availability. If some resource left after starting head job then it will be given to next in queue.</li>
+  <li>In <code class="highlighter-rouge">FIFO</code> even with jobs(Actions) are concurrent, it will be executing in sequence if the first one needs all resources.</li>
+  <li>We can change schedule mode by using config <code class="highlighter-rouge">spark.scheduler.mode</code> , this can be set only while creating spark session.</li>
+  <li>In<code class="highlighter-rouge">FAIR</code> scheduling mode, resources are distributed among jobs fairly.</li>
+  <li>In <code class="highlighter-rouge">FAIR</code>, if jobs(actions) are in sequence, then it will be executed in sequence.</li>
+  <li>To run jobs concurrently we need to use <code class="highlighter-rouge">FAIR</code> mode and job needs to run on separate threads.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-06-13T16:51:20+08:00">June 13, 2022</time></p>
+        
+      </footer>
+
+      
+
+<section class="page__share">
+  
+
+  <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=/running-spark-application-jobs-parallel-with-fair-scheduler/" class="btn btn--facebook" title=" Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+   !--
+   !-- <a href="https://plus.google.com/share?url=/running-spark-application-jobs-parallel-with-fair-scheduler/" class="btn btn--google-plus" title=" Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+   !--
+   !-- <a href="https://www.linkedin.com/shareArticle?mini=true&url=/running-spark-application-jobs-parallel-with-fair-scheduler/" class="btn btn--linkedin" title=" LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a> -->
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="/trampoline-scala-stack-saftey/" class="pagination--pager" title="Trampoline - A better way for stack safety in Scala
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/trampoline-scala-stack-saftey/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Trampoline - A better way for stack safety in Scala
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  2 minutes read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">This read is about being stack safety in scala and what are the ways to be stack safe.
+
+</p>
+    </article>
+  </a>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/tagless-final-vs-free-monad/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Tagless Final Vs Free monads
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  2 minutes read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">World of functional programing is more about writing code which focus on What (Algebra)? rather than how ?.
+This article is about how do we write description...</p>
+    </article>
+  </a>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/typeclass-over-sub-type-polymorphism/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Better Scala - Prefer ad-hoc Polymorphism over sub-type Polymorphism
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  less than 1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">Let’s assume that we want add a def ++[A](a: A, b:A):A on type  A
+
+</p>
+    </article>
+  </a>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  
+    <a href="/composing-scalaz-disjunction/">
+  
+    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+      
+      <h2 class="archive__item-title" itemprop="headline">Composing scalaz disjunction
+</h2>
+      
+        <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+  less than 1 minute read
+</p>
+      
+      <p class="archive__item-excerpt" itemprop="description">Scalaz provides disjunction \/ which is kind of scala’s Either. 
+It provides ways to convert different type to disjunction and it compose.
+
+</p>
+    </article>
+  </a>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="http://github.com/sumitppawar"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+  </ul>
+</div>
+
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+    <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+  </body>
+</html>
+
